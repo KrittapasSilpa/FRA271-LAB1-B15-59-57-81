@@ -1,0 +1,15 @@
+% =========================================================================
+% 2. ดึงข้อมูลทุกเส้น
+Time_Full = data.get('A0').Values.Time;
+PhaseA = data.get('A0').Values.Data;
+PhaseB = data.get('A1').Values.Data;
+
+% 👉 อัปเกรด: ให้โค้ดประกอบชื่อเส้นอัตโนมัติตามโหมดที่พิมพ์ (เช่น 'Encoder' + 'X2' = 'EncoderX2')
+Count_Name = ['Encoder' Read_Mode]; 
+Count = data.get(Count_Name).Values.Data; 
+
+% ค้นหาเส้น Pulse อัตโนมัติ (ข้ามเส้น A0, A1 และ EncoderX?)
+all_names = data.getElementNames;
+pulse_idx = find(~ismember(all_names, {'A0', 'A1', Count_Name}));
+Pulse = data.get(pulse_idx(1)).Values.Data;     
+% =========================================================================
